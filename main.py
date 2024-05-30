@@ -5,15 +5,11 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
 import multiprocessing
 
+from get_proxy import get_proxy_list
+
 
 def surf_site(proxy):
-    # ip, port = proxy.split(":")
     time.sleep(random.randint(5, 27))
-    # wire_options = {
-    #     'proxy': {
-    #         'http': f'http://{ip}:{port}',
-    #     }
-    # }
 
     options = webdriver.ChromeOptions()
     options.add_argument("user-agent=Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/109.0.0.0 Safari/537.36")
@@ -53,9 +49,9 @@ def surf_site(proxy):
 
 
 if __name__ == '__main__':
+    get_proxy_list()
     with open('proxy.txt') as file:
         proxy_list = [line.rstrip() for line in file]
-    # proxy_list = list((str.rstrip, open('proxy.txt').readline()))
     print(proxy_list)
     with multiprocessing.Pool(processes=4) as p:
         p.map(surf_site, proxy_list)
