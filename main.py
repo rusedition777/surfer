@@ -26,26 +26,49 @@ def surf_site(proxy):
         all_html.send_keys(Keys.DOWN)
     time.sleep(5)
 
-    driver.find_element(By.XPATH, '//*[@id="select_all"]').click()
-    time.sleep(7)
+    try:
+        driver.find_element(By.XPATH, '//*[@id="select_all"]').click()
+        time.sleep(7)
 
-    kol_sim = driver.find_element(By.XPATH, '//*[@id="id_kol_sim"]')
-    kol_sim.clear()
-    kol_sim.send_keys(str(random.randint(8, 12)))
+        kol_sim = driver.find_element(By.XPATH, '//*[@id="id_kol_sim"]')
+        kol_sim.clear()
+        kol_sim.send_keys(str(random.randint(8, 12)))
 
-    time.sleep(5)
+        time.sleep(5)
 
-    kol_vo = driver.find_element(By.XPATH, '//*[@id="id_kol"]')
-    kol_vo.clear()
-    kol_vo.send_keys(str(random.randint(10, 24)))
+        kol_vo = driver.find_element(By.XPATH, '//*[@id="id_kol"]')
+        kol_vo.clear()
+        kol_vo.send_keys(str(random.randint(10, 24)))
 
-    time.sleep(3)
+        time.sleep(3)
 
-    driver.find_element(By.XPATH, '/html/body/div/div/div[3]/form/div[2]/button').click()
+        driver.find_element(By.XPATH, '/html/body/div/div/div[3]/form/div[2]/button').click()
 
-    time.sleep(27)
-    driver.close()
-    driver.quit()
+        time.sleep(random.randint(3, 7))
+        driver.find_element(By.XPATH, '/html/body/header/div/nav/div/button/span').click()
+        time.sleep(2)
+        driver.find_element(By.XPATH, '// *[ @ id = "navbarNavDropdown"] / ul / li[3] / a').click()
+
+        all_html = driver.find_element(By.TAG_NAME, "html")
+        for i in range(10):
+            all_html.send_keys(Keys.DOWN)
+            time.sleep(random.randint(1, 3))
+
+        driver.find_element(By.XPATH, f'/ html / body / div / div / div[2] / div / div[{str(random.randint(1, 7))}] / div / div / div / div / a').click()
+
+        time.sleep(3)
+        all_html = driver.find_element(By.TAG_NAME, "html")
+        for i in range(15):
+            all_html.send_keys(Keys.DOWN)
+            time.sleep(random.randint(1, 3))
+
+        time.sleep(27)
+        driver.close()
+        driver.quit()
+    except Exception as e:
+        print(e)
+        driver.close()
+        driver.quit()
 
 
 if __name__ == '__main__':
